@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    
+    <meta property="og:title" content="Happy Birthday Buddy ! ">
+    <meta property="og:description" content="I have a surprise for you. Tap to open!">
+    <meta property="og:image" content="https://img.icons8.com/clouds/500/000000/gift.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelPink: '#ffd1dc',
+                        pastelCream: '#fdfd96',
+                        deepRose: '#ff6b6b',
+                        gold: '#ffd700',
+                    },
+                    fontFamily: {
+                        header: ['Pacifico', 'cursive'],
+                        body: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+    background-image: url("./photos/walpaper.jpg"); /* change path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+        
+        .hidden-section {
+            display: none;
+            opacity: 0;
+        }
+
+        .blob {
+            position: absolute;
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        .paper-texture {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1);
+        }
+
+        .polaroid {
+            transition: transform 0.3s ease;
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(2deg);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="text-gray-700 font-body min-h-screen flex flex-col items-center justify-center relative">
+
+    <div class="blob bg-pink-300 w-64 h-64 rounded-full top-0 left-0 mix-blend-multiply"></div>
+    <div class="blob bg-purple-300 w-64 h-64 rounded-full bottom-0 right-0 mix-blend-multiply animation-delay-2000"></div>
+
+    <section id="section-landing" class="text-center z-10 w-full max-w-md px-4 mt-40 relative right-40">
+        
+        <h1 class="font-header text-4xl md:text-5xl text-deepRose mb-8">
+            Hey Buddy...
+        </h1>
+        <p class="text-lg text-yellow-500 mb-8">I have a little surprise for you.</p>
+        
+        <div id="gift-box-container" class="cursor-pointer mx-auto w-48 h-48 relative transform transition-transform hover:scale-105" onclick="openGift()">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xl">
+                <rect x="40" y="80" width="120" height="100" fill="#ffd1dc" rx="5" />
+                <rect x="90" y="80" width="20" height="100" fill="#ff6b6b" />
+                <rect id="lid" x="30" y="60" width="140" height="30" fill="#ff99ac" rx="5" />
+                <rect id="lid-ribbon" x="90" y="60" width="20" height="30" fill="#ff6b6b" />
+                <path id="bow" d="M100 60 C80 30 50 60 90 65 C50 65 30 30 95 60 C105 30 140 30 110 60 C150 50 160 30 100 60" fill="none" stroke="#ff6b6b" stroke-width="8" stroke-linecap="round" />
+            </svg>
+            <p class="mt-4 text-sm text-green-400 animate-pulse">(Tap to open)</p>
+    
+        </div>
+    </section>
+
+    <section id="section-celebration" class="hidden-section w-full max-w-lg px-4 pb-20 pt-10">
+        <div class="text-center mb-10">
+            <h2 class="font-header text-5xl text-deepRose mb-2">Happy Birthday!</h2>
+            <p class="text-xl text-green-600">You are turning <span id="age-span" class="font-bold text-pink-500"></span> today! ✨</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-12">
+            <div class="polaroid bg-white p-2 shadow-lg rounded-xl rotate-[-2deg]">
+                <img src="./photos/Animy.png" class="rounded-lg w-full h-40 object-center" alt="Memory 1">
+            </div>
+               
+        </div>
+
+        <div class="text-center">
+            <p class="mb-4 text-red-500">I got you a cake...</p>
+            <button onclick="scrollToCake()" class="bg-pink-400 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-pink-500 transition-colors animate-bounce">
+                See the Cake ↓
+            </button>
+        </div>
+    </section>
+
+    <section id="section-cake" class="hidden-section w-full max-w-md px-4 py-20 text-center">
+        <h2 class="font-header text-3xl text-blue-700 mb-8">Make a wish...</h2>
+        
+        <div class="relative w-64 h-64 mx-auto cursor-pointer" onclick="blowCandle()">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <ellipse cx="100" cy="170" rx="90" ry="20" fill="#e0e0e0" />
+                <rect x="50" y="110" width="100" height="60" rx="5" fill="#f8b4d9" />
+                <path d="M50 110 Q100 130 150 110" fill="#ff9bc9" /> 
+                <path d="M50 110 C50 110 60 130 75 110 C75 110 85 130 100 110 C100 110 115 130 125 110 C125 110 135 130 150 110" stroke="#fff" stroke-width="10" stroke-linecap="round" fill="none" />
+                <rect x="95" y="70" width="10" height="40" fill="#64b5f6" />
+                <rect x="95" y="70" width="10" height="5" fill="#42a5f5" />
+                
+                <g id="flame-group">
+                    <path id="flame" d="M100 70 Q90 50 100 30 Q110 50 100 70" fill="#ffeb3b" />
+                    <circle cx="100" cy="65" r="3" fill="#ff9800" opacity="0.6" />
+                </g>
+
+                <g id="smoke-group" opacity="0">
+                    <path class="smoke" d="M100 70 Q90 50 95 30" stroke="#bdbdbd" stroke-width="2" fill="none" />
+                    <path class="smoke" d="M100 70 Q110 50 105 25" stroke="#bdbdbd" stroke-width="2" fill="none" />
+                </g>
+            </svg>
+            <p class="mt-4 text-sm text-blue-400 italic" id="wish-text">(Tap the flame to blow it out)</p>
+        </div>
+    </section>
+
+    <section id="section-letter" class="hidden-section w-full max-w-lg px-6 pb-20">
+        <div class="paper-texture p-8 rounded-lg transform transition-all duration-1000 translate-y-10 opacity-0" id="letter-content">
+            <div class="border-2 border-pink-200 p-4 rounded h-full dashed-border">
+                <p class="text-right text-xs text-gray-400 mb-4" id="current-date"></p>Suprise
+                <h3 class="font-header text-2xl text-deepRose mb-4">To my favorite person,</h3>
+                
+                <p class="leading-relaxed text-gray-700 mb-4">
+                    Happy Birthday! I wanted to make something special for you to show you how much you mean to me.
+                </p>
+                <p class="leading-relaxed text-gray-700 mb-4">
+                    From the moment you came into my life, everything started feeling brighter, calmer, and happier. 
+                    You are not just special to me — you are my comfort, my peace, and my favorite person to talk to every single day.
+                </p>
+                <p class="leading-relaxed text-gray-700">
+                    No matter how busy or difficult life gets, being with you always makes things feel lighter.
+                    I was glad to have you in my life when i want someone where i feel relaxed.
+                    Thank you for being part of my life.
+                </p>
+                <p class="mt-8 font-header text-xl text-right text-pink-500">- [@Niveditha]</p>
+                
+                <div class="mt-12 pt-2 border-t border-pink-200 text-center">
+                    <p class="text-sm text-gray-500 mb-4">Wait, there's one last thing...</p>
+                    <button onclick="triggerFinalSurprise()" class="bg-gradient-to-r from-purple-400 to-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-xl transform transition hover:scale-110 hover:rotate-2 animate-pulse">
+                        🎁 Click for Surprise!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        // --- MAIN ANIMATIONS ---
+        const landing = document.getElementById('section-landing');
+        const celebration = document.getElementById('section-celebration');
+        const cakeSection = document.getElementById('section-cake');
+        const letterSection = document.getElementById('section-letter');
+        
+        const birthDate = new Date("2000-04-10");
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        document.getElementById('age-span').innerText = age + "th";
+        document.getElementById('current-date').innerText = today.toDateString();
+
+        gsap.to("#gift-box-container", {
+            y: -10,
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // --- OPEN GIFT ---
+        function openGift() {
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    landing.style.display = 'none';
+                    initCelebration();
+                }
+            });
+
+            tl.to("#lid", { y: -20, rotation: -10, duration: 0.5 })
+              .to("#gift-box-container", { scale: 1.2, opacity: 0, duration: 0.5 }, "<")
+              .to(landing, { opacity: 0, duration: 0.5 }, "<");
+        }
+
+        function initCelebration() {
+            celebration.style.display = 'block';
+            gsap.to(celebration, { opacity: 1, duration: 1 });
+            
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+              if (timeLeft <= 0) return clearInterval(interval);
+              var particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        function scrollToCake() {
+            cakeSection.style.display = 'block';
+            gsap.to(cakeSection, { opacity: 1, duration: 1, delay: 0.2 });
+            cakeSection.scrollIntoView({ behavior: 'smooth' });
+            
+            gsap.to("#flame", {
+                scale: 1.1,
+                transformOrigin: "center bottom",
+                duration: 0.2,
+                repeat: -1,
+                yoyo: true,
+                ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})"
+            });
+        }
+
+        let candleBlown = false;
+        function blowCandle() {
+            if (candleBlown) return;
+            candleBlown = true;
+            const tl = gsap.timeline();
+
+            tl.to("#flame-group", { scale: 0, opacity: 0, transformOrigin: "center bottom", duration: 0.5 })
+              .to("#smoke-group", { opacity: 1, duration: 0.2 })
+              .to(".smoke", { y: -20, opacity: 0, duration: 1.5, stagger: 0.2 })
+              .to("#wish-text", { text: "Wish granted! ✨", duration: 0.5 }, "<");
+
+            tl.add(() => { showLetter(); }, "-=1");
+        }
+
+        function showLetter() {
+            letterSection.style.display = 'block';
+            letterSection.scrollIntoView({ behavior: 'smooth' });
+            
+            gsap.to(letterSection, { opacity: 1, duration: 1 });
+            gsap.to("#letter-content", { 
+                y: 0, 
+                opacity: 1, 
+                duration: 1.5, 
+                ease: "power3.out", 
+                delay: 0.5 
+            });
+        }
+
+        function triggerFinalSurprise() {
+            var duration = 2.5 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 7, angle: 60, spread: 55, origin: { x: 0 },
+                    colors: ['#ff0000', '#ffd700', '#ffffff']
+                });
+                confetti({
+                    particleCount: 7, angle: 120, spread: 55, origin: { x: 1 },
+                    colors: ['#ff0000', '#ffd700', '#ffffff']
+                });
+
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+
+            setTimeout(() => {
+               window.location.href = "http://127.0.0.1:5500/birthday/index1.html";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
