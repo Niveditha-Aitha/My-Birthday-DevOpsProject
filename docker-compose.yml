@@ -1,0 +1,8 @@
+services:
+  web:
+    image: ${DOCKERHUB_USERNAME:-local}/birthday-devops:latest
+    build: .
+    container_name: birthday-app
+    ports:
+      - "80:80"
+    restart: unless-stopped
